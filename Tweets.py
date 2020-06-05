@@ -10,11 +10,19 @@ class Tweets():
         auth.set_access_token(keys.access_token, keys.access_token_secret)
         self.api = tweepy.API(auth)
 
-    def HashTweet(self, hashtag, amount):
+    def HashTweet(self, hashtag, amount,lowid):
         A = []
         if (lowid != None):  # if you dont have a previous itt,
-            twt = self.api.search(q=hash, count=100)
+            twt = self.api.search(q=hashtag, count=amount, tweet_mode='extended', max_id=lowid)
             for st in twt:
-                A.append(st.text)
+                A.append(st.name) #name is temp for testing purposes
+        else:
+            twt = self.api.search(q=hashtag, count=amount, tweet_mode='extended')
+            for st in twt:
+                A.append(st.name)  # name is temp for testing purposes
+        print(A)
+        return A
 
-        return (A)        
+
+
+
