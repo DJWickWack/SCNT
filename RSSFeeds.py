@@ -19,7 +19,7 @@ class RSSFeeds():
         return arts
 
 
-
-d=RSSFeeds()
-f=d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-print(d.GetArticles(f))
+# for testing
+# d=RSSFeeds()
+# f=d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
+# print(d.GetArticles(f))
