@@ -1,13 +1,13 @@
 import feedparser
-
+import beautifulsoup4 as bs4
 
 class RSSFeeds():
 
     def GetFeed(self, feedurl):
-        return  feedparser.parse(feedurl)
+        return feedparser.parse(feedurl)
 
     def GetArticles(self, feed):
-        arts=[]
+        arts = []
         entries = feed['entries']
         for x in entries:
             arts.append({
@@ -20,6 +20,6 @@ class RSSFeeds():
 
 
 # for testing
-# d=RSSFeeds()
-# f=d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-# print(d.GetArticles(f))
+d = RSSFeeds()
+f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
+print(d.GetArticles(f)[0]['summary'])
