@@ -30,7 +30,7 @@ class RSSFeeds():
         # Add entry to articles, contains list of paragraph texts to analyze
         # todo: generating duplicates for me, but works for now.
         for article in arts:
-            soup = bs4.BeautifulSoup(article['summary'])
+            soup = bs4.BeautifulSoup(article['summary'], features="html.parser")
             paragraphs = soup.find_all('p')
             text_found = []
             for p in paragraphs:
@@ -43,4 +43,4 @@ class RSSFeeds():
 # for testing
 d = RSSFeeds()
 f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-print(d.GetArticles(f)[0]['summary'])
+print(d.GetArticles(f)[0]['texts'])
