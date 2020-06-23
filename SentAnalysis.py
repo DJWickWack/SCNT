@@ -26,14 +26,17 @@ class SentAnalysis():
     def rssAnalysis(self,news):
         newssent=[]
         for nw in news:
-            blob=TextBlob(nw['title'])#doing title only for now since summary is unseable
+            blob=TextBlob(nw['texts'][0])
             newssent.append(blob)
         for x in range(0, (len(newssent))):
             newssent[x] = newssent[x].sentiment.polarity
         return newssent
 #for testings
-# sa=SentAnalysis()
-# tw=Tweets()
-#
-#
-# print(sa.tweetAnalysis(tw.HashTweet('#bitcoin',10,None)))
+sa=SentAnalysis()
+tw=Tweets()
+rs=RSSFeeds
+d = RSSFeeds()
+f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
+print(sa.rssAnalysis(d.GetArticles(f)))
+print(sa.tweetAnalysis(tw.HashTweet('#bitcoin',10,None)))
+print(sa.getAnalysis(tw.HashTweet('#bitcoin',10,None),d.GetArticles(f)))

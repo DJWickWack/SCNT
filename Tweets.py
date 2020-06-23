@@ -20,7 +20,7 @@ class Tweets():
             for st in twt:
                 A.append(st.full_text)
         return A
-#for testing
+# testing
 # rt = Tweets()
 # a = rt.HashTweet('#Bitcoin',10,None)
 # print(a)

@@ -38,9 +38,27 @@ class RSSFeeds():
             article['texts'] = text_found
 
         return arts
+    def SaveTexts (self,arts,filename):
+        file=open(filename,"w")
+        for x in arts:
+            file.write((x['texts'][0]+" \n"))
+        file.close()
+        print("File saved!")
+
+    def LoadTexts (self,filename):
+        file = open(filename,"r")
+        temp = file.readlines()
+        for x in temp:
+            x.replace(" \n", "")
+        return temp
+
+
 
 
 # for testing
 d = RSSFeeds()
 f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-print(d.GetArticles(f)[0]['texts'])
+d.SaveTexts(d.GetArticles(f),"DemoTexts.txt")
+for x in d.LoadTexts("DemoTexts.txt"):
+    print(x)
+
