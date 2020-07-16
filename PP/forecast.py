@@ -6,7 +6,10 @@ from ta import momentum
 import time
 
 '''
-Takes in a datetime, outputs prediction of immediate momentum for BTC
+Takes in a datetime, outputs prediction of immediate momentum for BTC.
+
+Predictions done based on a typical Stochastica Oscillator signal
+    https://www.investopedia.com/terms/s/stochasticoscillator.asp
 '''
 def forecastMomentum(ticker, date):
     start = date - timedelta(days=16)
