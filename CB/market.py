@@ -4,6 +4,7 @@ For now, lets just work with the BTC-USD ticker and expand from there once main 
 import CB.auth
 import requests
 import json
+import csv
 
 """
 # Gets raw ticker data and returns json
@@ -109,3 +110,16 @@ def historical_data_json(id, start, end, granularity):
         print(error)
 
 
+def historical_data_csv(id, start, end, granularity):
+
+    CSV = open(f'./{id}-PRICE.csv', 'w+')
+
+    json_data = historical_data_json(id, start, end, granularity)
+    writer = csv.writer(CSV, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+    writer.writerow(['time', 'low', 'high', 'open', 'close', 'volume'])
+    for entry in json_data:
+        writer.writerow(entry)
+
+    CSV.close()
+    return CSV
