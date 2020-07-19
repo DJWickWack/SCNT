@@ -1,10 +1,13 @@
 import PP.forecast as forecast
 from datetime import datetime
 import CB.market
+import pandas
 
-# last 4 months of dates
-start = datetime(2020, 7, 1, hour=12)
+# Get hourly candles for the last month
+start = datetime(2020, 6, 19, hour=20)
+end = datetime(2020, 7, 1, hour=20)
+granularity = 3600  #1-hour in seconds
 
-end = datetime(2020, 7, 18, hour=0)
+csv_data = CB.market.historical_data_csv('BTC-USD', start, end, granularity)
 
-x = CB.market.historical_data_csv('BTC-USD', start, end, 3600)
+forecast.forecastMomentum(csv_data)
