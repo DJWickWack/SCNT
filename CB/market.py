@@ -5,6 +5,8 @@ import CB.auth
 import requests
 import json
 import csv
+import datetime
+import time
 
 """
 # Gets raw ticker data and returns json
@@ -111,15 +113,36 @@ def historical_data_json(id, start, end, granularity):
 
 
 def historical_data_csv(id, start, end, granularity):
-
     CSV = open(f'./{id}-PRICE.csv', 'w+')
+    page_length = datetime.timedelta(seconds=(granularity * 299))
 
-    json_data = historical_data_json(id, start, end, granularity)
-    writer = csv.writer(CSV, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    new_end = start + page_length
+    if new_end > end:
+        new_end = end
 
-    writer.writerow(['time', 'low', 'high', 'open', 'close', 'volume'])
-    for entry in json_data:
-        writer.writerow(entry)
+    page = 0
+    while new_end <= end:
+        time.sleep(1)  # wait for coinbase api throttle
+        print(f'Getting page {page}')
+        if new_end > end:
+            new_end = end
 
-    CSV.close()
-    return CSV
+        json_data = historical_data_json(id, start, new_end, granularity)
+        writer = csv.writer(CSV, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+        if page == 0:
+            writer.writerow(['time', 'low', 'high', 'open', 'close', 'volume'])
+
+        for entry in json_data:
+            writer.writerow(entry)
+
+        start = new_end + datetime.timedelta(seconds=granularity)
+
+        if new_end == end:
+            CSV.close()
+            return CSV
+        else:
+            new_end = start + page_length
+            if new_end > end:
+                new_end = end
+            page += 1
