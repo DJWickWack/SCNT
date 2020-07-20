@@ -113,6 +113,12 @@ def historical_data_json(id, start, end, granularity):
 
 
 def historical_data_csv(id, start, end, granularity):
+
+    # todo: may be too early to decide this.
+    #  Should probably decide in forecast.py, but ideally we should avoid the query somehow.
+    if (end - start).total_seconds()/granularity < 17:
+        raise Exception("Insufficient timedelta for granularity, won't be able to forecast")
+
     CSV = open(f'./{id}-PRICE.csv', 'w+')
     page_length = datetime.timedelta(seconds=(granularity * 299))
 
