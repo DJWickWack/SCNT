@@ -112,28 +112,27 @@ def historical_data_json(id, start, end, granularity):
         print(error)
 
 
-def historical_data_csv(id, start, end, granularity):
+def get_forecastable_data(id, time_to_forecast, granularity):
 
-    # todo: may be too early to decide this.
-    #  Should probably decide in forecast.py, but ideally we should avoid the query somehow.
-    if (end - start).total_seconds()/granularity < 17:
-        raise Exception("Insufficient timedelta for granularity, won't be able to forecast")
+    # todo: we only need to get 17 candles currently, but would need option for more/less depending on the TA we do.
+    #           Not future-proof and should be modularized.
+    start_time = time_to_forecast - datetime.timedelta(seconds=granularity * 17)
 
     CSV = open(f'./{id}-PRICE.csv', 'w+')
     page_length = datetime.timedelta(seconds=(granularity * 299))
 
-    new_end = start + page_length
-    if new_end > end:
-        new_end = end
+    new_end = start_time + page_length
+    if new_end > time_to_forecast:
+        new_end = time_to_forecast
 
     page = 0
-    while new_end <= end:
+    while new_end <= time_to_forecast:
         time.sleep(1)  # wait for coinbase api throttle
         print(f'Getting page {page}')
-        if new_end > end:
-            new_end = end
+        if new_end > time_to_forecast:
+            new_end = time_to_forecast
 
-        json_data = historical_data_json(id, start, new_end, granularity)
+        json_data = historical_data_json(id, start_time, new_end, granularity)
         writer = csv.writer(CSV, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
         if page == 0:
@@ -142,13 +141,13 @@ def historical_data_csv(id, start, end, granularity):
         for entry in json_data:
             writer.writerow(entry)
 
-        start = new_end + datetime.timedelta(seconds=granularity)
+        start_time = new_end + datetime.timedelta(seconds=granularity)
 
-        if new_end == end:
+        if new_end == time_to_forecast:
             CSV.close()
             return CSV
         else:
-            new_end = start + page_length
-            if new_end > end:
-                new_end = end
+            new_end = start_time + page_length
+            if new_end > time_to_forecast:
+                new_end = time_to_forecast
             page += 1

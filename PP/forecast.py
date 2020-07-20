@@ -12,6 +12,11 @@ Signals indicate some sort of reversal.
 
 Predictions done based on a typical Stochastica Oscillator signal
     https://www.investopedia.com/terms/s/stochasticoscillator.asp
+    
+:return
+    0 if oversold (bull signal)
+    1 if neither
+    2 if overbought (bearish signal)
 '''
 def ta_only_forecastMomentum(price_data_csv):
     df = pandas.read_csv(filepath_or_buffer=price_data_csv.name, delimiter=',', header=0)
@@ -30,7 +35,6 @@ def ta_only_forecastMomentum(price_data_csv):
     # predict based on signal
     signal = data_frame['Stoch_D'].array[-1] + data_frame['Stoch_K'].array[-1]
     RSI = data_frame['RSI'].array[-1]
-    print(data_frame)
     if signal > 160 and RSI > 70:  # overbought assets
         print(f"\nSO signal: {signal}\nRSI: {RSI}\nCLOSE: {data_frame['close'].array[-1]}")
         return 2

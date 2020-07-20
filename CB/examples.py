@@ -15,7 +15,7 @@ end = datetime.now()
 start = end - timedelta(days=50)
 granularity = 86400 # one-day candles
 # Make sure to use iso format for date inputs
-x = CB.market.historical_data_csv(TICKER, start.isoformat(), end.isoformat(), granularity)
+x = CB.market.get_forecastable_data(TICKER, start.isoformat(), end.isoformat(), granularity)
 print(x)
 
 

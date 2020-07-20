@@ -1,5 +1,5 @@
 import PP.forecast as forecast
-from datetime import datetime
+from datetime import datetime, timedelta
 import CB.market
 import pandas
 
@@ -10,10 +10,8 @@ Just a basic simulation to see how accurate simple momentum indication is.
 '''
 
 # Get hourly candles for the last month
-start = datetime(2020, 6, 1, hour=20)
-end = datetime(2020, 6, 18, hour=20)
+time = datetime.now()
 granularity = 86400  #1-hour in seconds
-
-
-csv_data = CB.market.historical_data_csv('BTC-USD', start, end, granularity)
+csv_data = CB.market.get_forecastable_data('BTC-USD', time, granularity)
 forecast.ta_only_forecastMomentum(csv_data)
+
