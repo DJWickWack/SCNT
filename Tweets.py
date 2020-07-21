@@ -1,3 +1,5 @@
+import datetime
+
 import tweepy
 import pandas as pd
 from config import key as key
@@ -9,19 +11,28 @@ class Tweets():
         auth.set_access_token(key.access_token, key.access_token_secret)
         self.api = tweepy.API(auth)
 
-    def HashTweet(self, hashtag, amount,lowid):
+    def HashTweet(self, hashtag, amount):
         A = []
-        if (lowid != None):  # if you dont have a previous itt,
-            twt = self.api.search(q=hashtag, count=amount, tweet_mode='extended', max_id=lowid, lang='en')
-            for st in twt:
-                A.append(st)
-        else:
-            twt = self.api.search(q=hashtag, count=amount, tweet_mode='extended', lang='en')
-            for st in twt:
-                A.append(st.full_text)
+        twt = self.api.search(q=hashtag, count=amount, tweet_mode='extended', lang='en')
+        for st in twt:
+            A.append(st.full_text)
         return A
-# testing
-# rt = Tweets()
-# a = rt.HashTweet('#Bitcoin',10,None)
-# print(a)
+
+    def HashTweet(self, hashtag, sincedate, untildate, amount):
+        A = []
+        twt = self.api.search(q=hashtag, count=100, since= sincedate,until= untildate, tweet_mode='extended', lang='en')
+        for st in twt:
+
+            A.append(st.full_text)
+
+        return A
+
+
+
+startDate = datetime.datetime(2020, 7, 1, 0, 0, 0)
+endDate = datetime.datetime(2020, 1, 1, 0, 0, 0)
+rt = Tweets()
+datee = (startDate, endDate)
+a = rt.HashTweet('#Bitcoin',datee,10,None)
+print(a)
 

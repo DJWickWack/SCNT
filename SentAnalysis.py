@@ -32,11 +32,11 @@ class SentAnalysis():
             newssent[x] = newssent[x].sentiment.polarity
         return newssent
 #for testings
-sa=SentAnalysis()
-tw=Tweets()
-rs=RSSFeeds
-d = RSSFeeds()
-f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-print(sa.rssAnalysis(d.GetArticles(f)))
-print(sa.tweetAnalysis(tw.HashTweet('#bitcoin',10,None)))
-print(sa.getAnalysis(tw.HashTweet('#bitcoin',10,None),d.GetArticles(f)))
+# sa=SentAnalysis()
+# tw=Tweets()
+# rs=RSSFeeds
+# d = RSSFeeds()
+# f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
+# print(sa.rssAnalysis(d.GetArticles(f)))
+# print(sa.tweetAnalysis(tw.HashTweet('#bitcoin',10,None)))
+# print(sa.getAnalysis(tw.HashTweet('#bitcoin',10,None),d.GetArticles(f)))
