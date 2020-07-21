@@ -111,7 +111,24 @@ def historical_data_json(id, start, end, granularity):
         print('ERROR Getting Historic Data\n')
         print(error)
 
+"""
+# Get price based on some time
+# Coinbase returns a 2d list like this:
+[
+    [ 1415398768, 0.32, 4.2, 0.35, 4.2, 12.3 ],
+    [ 1415398948, 0.77, 4.4, 0.36, 4.2, 8.8 ],
+    ...
+]
 
+granularity field must be one of the following values: {60, 300, 900, 3600, 21600, 86400}
+    essentially length of candle time in seconds
+time inputs must be ISO 8601 (YYYY-MM-DD)
+
+:var id - some ticker id like 'BTC-USD'
+:var time_to_forecast - some ISO8601 starting time
+:var granularity - valid candlestick times in seconds includes: {60, 300, 900, 3600, 21600, 86400}
+:return csv of historical data
+"""
 def get_forecastable_data(id, time_to_forecast, granularity):
 
     # todo: we only need to get 17 candles currently, but would need option for more/less depending on the TA we do.
