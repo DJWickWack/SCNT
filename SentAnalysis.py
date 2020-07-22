@@ -1,13 +1,19 @@
 from textblob import TextBlob
 from Tweets import Tweets
 from RSSFeeds import RSSFeeds
+import News.search as search
 
 
 class SentAnalysis():
-    def getAnalysis(self, tweets, news):
+    def getAnalysis(self, topic):
         # This takes in both a list of tweet text and an arr of rss feed news
         # This will return a single number based off all the returning analysis
-        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(news)
+        d = RSSFeeds()
+        tw = Tweets()
+        tweets = tw.HashTweet('#'+topic, 10)
+        f = d.GetFeed('https://cointelegraph.com/rss/tag/'+topic)
+        rss= d.GetArticles(f)
+        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(topic)
         res = 0
         for x in total_anal:
             res += x
@@ -31,12 +37,18 @@ class SentAnalysis():
         for x in range(0, (len(newssent))):
             newssent[x] = newssent[x].sentiment.polarity
         return newssent
+
+    def newsAnalysis(self,topic):
+        news = search.NewsSearch(topic)
+        newsbody=[]
+        newstitle=[]
+        for article in news['value']:
+            blob = TextBlob(article["body"])
+            newsbody.append(blob.sentiment.polarity)
+        for article in news['value']:
+            blob = TextBlob(article["title"])
+            newstitle.append(blob.sentiment.polarity)
+        return newsbody+newstitle
 #for testings
-# sa=SentAnalysis()
-# tw=Tweets()
-# rs=RSSFeeds
-# d = RSSFeeds()
-# f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-# print(sa.rssAnalysis(d.GetArticles(f)))
-# print(sa.tweetAnalysis(tw.HashTweet('#bitcoin',10,None)))
-# print(sa.getAnalysis(tw.HashTweet('#bitcoin',10,None),d.GetArticles(f)))
+sa=SentAnalysis()
+print(sa.getAnalysis('bitcoin'))
