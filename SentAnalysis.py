@@ -5,12 +5,26 @@ import News.search as search
 
 
 class SentAnalysis():
-    def getAnalysis(self, topic):
+    def get7dayAnalysis(self, topic):
         # This takes in both a list of tweet text and an arr of rss feed news
         # This will return a single number based off all the returning analysis
         d = RSSFeeds()
         tw = Tweets()
-        tweets = tw.HashTweet('#'+topic, 10)
+        tweets = tw.Past10('#'+topic, 10)
+        f = d.GetFeed('https://cointelegraph.com/rss/tag/'+topic)
+        rss= d.GetArticles(f)
+        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(topic)
+        res = 0
+        for x in total_anal:
+            res += x
+        return res/len(total_anal)
+
+    def getdayAnalysis(self, topic, day):
+        # This takes in both a list of tweet text and an arr of rss feed news
+        # This will return a single number based off all the returning analysis
+        d = RSSFeeds()
+        tw = Tweets()
+        tweets = tw.getDay('#'+topic, 10, day)
         f = d.GetFeed('https://cointelegraph.com/rss/tag/'+topic)
         rss= d.GetArticles(f)
         total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(topic)
@@ -51,4 +65,4 @@ class SentAnalysis():
         return newsbody+newstitle
 #for testings
 sa=SentAnalysis()
-print(sa.getAnalysis('bitcoin'))
+print(sa.get7dayAnalysis('bitcoin'))
