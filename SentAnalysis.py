@@ -1,3 +1,5 @@
+import datetime
+
 from textblob import TextBlob
 from Tweets import Tweets
 from RSSFeeds import RSSFeeds
@@ -8,12 +10,13 @@ class SentAnalysis():
     def get7dayAnalysis(self, topic):
         # This takes in both a list of tweet text and an arr of rss feed news
         # This will return a single number based off all the returning analysis
+        news = search.NewsSearch(topic)
         d = RSSFeeds()
         tw = Tweets()
         tweets = tw.Past10('#'+topic, 10)
         f = d.GetFeed('https://cointelegraph.com/rss/tag/'+topic)
         rss= d.GetArticles(f)
-        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(topic)
+        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(news)
         res = 0
         for x in total_anal:
             res += x
@@ -22,12 +25,13 @@ class SentAnalysis():
     def getdayAnalysis(self, topic, day):
         # This takes in both a list of tweet text and an arr of rss feed news
         # This will return a single number based off all the returning analysis
+        news = search.NewsDaySearch(topic,day,datetime.timedelta(days=1))
         d = RSSFeeds()
         tw = Tweets()
         tweets = tw.getDay('#'+topic, 10, day)
         f = d.GetFeed('https://cointelegraph.com/rss/tag/'+topic)
         rss= d.GetArticles(f)
-        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(topic)
+        total_anal = self.tweetAnalysis(tweets) + self.rssAnalysis(rss)+self.newsAnalysis(news)
         res = 0
         for x in total_anal:
             res += x
@@ -52,8 +56,7 @@ class SentAnalysis():
             newssent[x] = newssent[x].sentiment.polarity
         return newssent
 
-    def newsAnalysis(self,topic):
-        news = search.NewsSearch(topic)
+    def newsAnalysis(self,news):
         newsbody=[]
         newstitle=[]
         for article in news['value']:
