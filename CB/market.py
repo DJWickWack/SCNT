@@ -128,7 +128,7 @@ def get_forecastable_data(id, time_to_forecast, granularity):
     page = 0
     while new_end <= time_to_forecast:
         time.sleep(1)  # wait for coinbase api throttle
-        print(f'Getting page {page}')
+        # print(f'Getting page {page}')
         if new_end > time_to_forecast:
             new_end = time_to_forecast
 

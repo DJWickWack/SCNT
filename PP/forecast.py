@@ -37,11 +37,25 @@ def ta_only_forecastMomentum(price_data_csv):
     RSI = data_frame['RSI'].array[-1]
     if signal > 160 and RSI > 70:  # overbought assets
         print(f"\nSO signal: {signal}\nRSI: {RSI}\nCLOSE: {data_frame['close'].array[-1]}")
-        return 2
+        return {
+            'signal': 2,
+            'RSI': RSI,
+            'SO': signal,
+            'PRICE': data_frame['close'].array[-1]
+        }
     elif signal < 40 and RSI < 30:  # oversold asset
         print(f"\nSO signal: {signal}\nRSI: {RSI}\nCLOSE: {data_frame['close'].array[-1]}")
-        return 0
+        return {
+            'signal': 0,
+            'RSI': RSI,
+            'SO': signal,
+            'PRICE': data_frame['close'].array[-1]
+        }
     else:  # not overbought/sold, should hold the asset
         print(f"\nSO signal: {signal}\nRSI: {RSI}\nCLOSE: {data_frame['close'].array[-1]}")
-        return 1
-
+        return {
+            'signal': 1,
+            'RSI': RSI,
+            'SO': signal,
+            'PRICE': data_frame['close'].array[-1]
+        }
