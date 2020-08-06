@@ -66,6 +66,3 @@ class SentAnalysis():
             blob = TextBlob(article["title"])
             newstitle.append(blob.sentiment.polarity)
         return newsbody+newstitle
-#for testings
-# sa=SentAnalysis()
-# print(sa.get7dayAnalysis('bitcoin'))

@@ -55,10 +55,4 @@ class RSSFeeds():
 
 
 
-# for testing
-# d = RSSFeeds()
-# f = d.GetFeed('https://cointelegraph.com/rss/tag/bitcoin')
-# d.SaveTexts(d.GetArticles(f),"DemoTexts.txt")
-# for x in d.LoadTexts("DemoTexts.txt"):
-#     print(x)
 
