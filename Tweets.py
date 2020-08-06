@@ -51,10 +51,4 @@ class Tweets():
 
 
 
-# startDate = datetime.datetime(2020, 7, 24, 0, 0, 0)
-# # endDate = datetime.datetime(2020, 1, 1, 0, 0, 0)
-# rt = Tweets()
-# #a= rt.HashTweet("#bitcoin",10)
-# a = rt.getDay('#Bitcoin',1,startDate)
-# print(a,len(a))
 
