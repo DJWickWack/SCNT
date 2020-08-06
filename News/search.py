@@ -18,8 +18,8 @@ def NewsSearch(query):
     # I am 'paying' for this api key but my virtual card has a $1 limit. it should stay free for the
     #   first 10000 searches though
     headers = {
-        'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
-        'x-rapidapi-key': "948fe9c868msh9cf61cb73a42fddp176157jsn14144f040a4a"
+        'x-rapidapi-host': "",
+        'x-rapidapi-key': ""
     }
     url = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI"
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -45,8 +45,8 @@ def NewsDaySearch(query,date,delta):
     # I am 'paying' for this api key but my virtual card has a $1 limit. it should stay free for the
     #   first 10000 searches though
     headers = {
-        'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
-        'x-rapidapi-key': "948fe9c868msh9cf61cb73a42fddp176157jsn14144f040a4a"
+        'x-rapidapi-host': "",
+        'x-rapidapi-key': ""
     }
     url = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/NewsSearchAPI"
     response = requests.request("GET", url, headers=headers, params=querystring)

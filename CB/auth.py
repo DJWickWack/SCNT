@@ -9,9 +9,9 @@ from requests.auth import AuthBase
 
 #Credentials from public coinbase sandbox: https://public.sandbox.pro.coinbase.com
 # no need to secure these, they aren't linked to real funds. just a testing api
-API_SECRET = "KCTvny2IXySh8blJwM3fe3RaS9gu03aAVlQqENJFepQhJRQNqdISzZdjqxGwzQpByaqwMr/3FIdeRi8a8FPmZA=="
-API_PASS = "password"
-API_KEY = "355779993adce0beeae3508b7c06d9ee"
+API_SECRET = ""
+API_PASS = ""
+API_KEY = ""
 
 # Create custom authentication for Exchange, we shouldn't have to edit this
 class CoinbaseExchangeAuth(AuthBase):
