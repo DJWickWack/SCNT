@@ -1,41 +1,67 @@
 # Your project name
 
-This is a sample README file. It is required to have all sections below at the minimum but feel free to add more if you want. Also, it is recommended to follow the same formats with headers, bullet points, highlights...
-
-Here is a README.md example: https://github.com/drphamwit/SE-SampleGithubRepo/blob/master/README-Example.md
+Trading cryptocurrency is a risky and difficult process. There are many factors that could affect the price of a digital asset with none of the protections that comes with US stock trading. In our project, we aim to determine the effects of public sentiment on the price of Bitcoin in order to create the foundation to a more accurate trading method which considers both sentiment-based and trend-based prediction models.
 
 ## Introduction
 
-Briefly describe what your project is all about.
+####Sentiment Analysis
+For the sentiment analysis we use the textblob module: https://pypi.org/project/textblob
+
+We gather information using a few sources:
+* Twitter API - https://developer.twitter.com/en
+* Feedparser for RSS feeds - https://pypi.org/project/feedparser/
+* RapidAPI Contextual Web Search - https://rapidapi.com/contextualwebsearch/api/Web%20Search
+
+Using these tools we can gather information about a specific cryptocurrency and input that data into textblob for an overall public sentimet/opinion.
+
+####Technical Analysis
+For the technical analysus, we used the pandas and TA libraries to perform analysus on Bitcoin specifically, however this can be applied to any cryptocurrency as is our plan in the future.
+* Pandas - https://pypi.org/project/pandas/
+* TA - https://pypi.org/project/ta/
+
+We use the Coinbase API to gather historical price data, however this has some odd limitations and we plan on moving to something more versatile in the future.
+We will also be using this API to perform automated trading once we are more satisfied with the progress we have made on our trading models.
+* https://docs.pro.coinbase.com/
+
+####Trading Methods
+We combine a Stochastic Oscillator, Relative Strength Index, and our own Sentiment Analysis together to get an overall 
+trading decision based on what each of these say. A Stochastic Oscillator and Relative Strength Index are very sensitive
+trading models that can have many false positives.
+
+Using these models with high volatility allow us to determine whether applying decisions based on Sentiment Analysis 
+actually made a difference, or if we need to tweak our models to avoid the false positives/negatives. 
+
+More info on trading methods:
+* Stocastic Oscillator - https://www.investopedia.com/terms/s/stochasticoscillator.asp
+* Relative Strength Index - https://www.investopedia.com/terms/r/rsi.asp
 
 ## Features
-List all the features (use cases) of your application.
-1. Feature #1
-2. Feature #2
-3. Feature #3
-4. ...
+1. Gather price data from Coinbase
+2. Get data in JSON, CSV, and Dictionary formats
+3. Gather news related to any topic, and from any time
+4. Gather tweets related to any topic, and any time up to a week ago
+5. Gather articles from RSS feeds
+6. With data ranging more than 14 entries, use TA to get price velocity
 
 ## Getting Started
-### Installation and Setup
-List all the steps on how to install and setup your project
-### Run
-List all the steps on how to run your project
+### Usage
+Currently the project is in a POC stage, where we are exploring the best ways to predict Bitcoin price using Sentiment and moderately volatile TA methods. Because of this, our project
+is mainly a collection of python modules that can be imported into your own project should you decide to use them.
+
+Once you have imported them into your project, there are a few API credentials that must be added:
+* CB
+    * Under auth.py, add API_SECRET, API_PASS, API_KEY credentials.
+* News
+    * In search.py, add RapidAPI credentials in both headers variables for NewsSearch and NewsDaySearch
+* Config.py
+    * add consumer_key, consumer_secret, access_token, and access_token_secret from Twitter API
+
 
 ## Demo video
-
-Upload your demo video to youtube and put a link here. Basically, the video content is very much like the quick live demo of your product with the followings:
-1. Introduction
-2. How to run the app
-3. Quick walkthrough of all the features of your app one by one
-
-Please make it short and interesting!
-
-Sample: https://www.youtube.com/watch?v=Pr-JMqTkdEM
-
-How to record your screen: https://www.techradar.com/how-to/record-your-screen
+https://www.youtube.com/watch?v=iPPa9Q0pQo0
 
 ## Contributors
 
-* John Doe, Team Lead
-* Alan Smith, Bug Fixer
+* Bruce Craig, Social API's and Sentiment Analysis
+* Alan Smith, Coinbase/News API's and Technical Analysis
 
