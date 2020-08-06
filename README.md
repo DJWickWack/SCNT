@@ -1,10 +1,10 @@
-# Your project name
+# SCNT (Social Cryptocurrency Notifying and Trading)
 
 Trading cryptocurrency is a risky and difficult process. There are many factors that could affect the price of a digital asset with none of the protections that comes with US stock trading. In our project, we aim to determine the effects of public sentiment on the price of Bitcoin in order to create the foundation to a more accurate trading method which considers both sentiment-based and trend-based prediction models.
 
 ## Introduction
 
-####Sentiment Analysis
+### Sentiment Analysis
 For the sentiment analysis we use the textblob module: https://pypi.org/project/textblob
 
 We gather information using a few sources:
@@ -14,7 +14,7 @@ We gather information using a few sources:
 
 Using these tools we can gather information about a specific cryptocurrency and input that data into textblob for an overall public sentimet/opinion.
 
-####Technical Analysis
+#### Technical Analysis
 For the technical analysus, we used the pandas and TA libraries to perform analysus on Bitcoin specifically, however this can be applied to any cryptocurrency as is our plan in the future.
 * Pandas - https://pypi.org/project/pandas/
 * TA - https://pypi.org/project/ta/
@@ -23,7 +23,7 @@ We use the Coinbase API to gather historical price data, however this has some o
 We will also be using this API to perform automated trading once we are more satisfied with the progress we have made on our trading models.
 * https://docs.pro.coinbase.com/
 
-####Trading Methods
+#### Trading Methods
 We combine a Stochastic Oscillator, Relative Strength Index, and our own Sentiment Analysis together to get an overall 
 trading decision based on what each of these say. A Stochastic Oscillator and Relative Strength Index are very sensitive
 trading models that can have many false positives.
